@@ -1,13 +1,41 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <body style="background-color: black;">
-            <div style="text-align: center;">
-                <a href="https://www.youtube.com/watch?v=JpJmz_9VaKY&list=LL">
-                    <img src="./img.gif" class="center">
-                </a>
-                <p style="color:red;">YOU ARE MEAT</p>
-            </div>
-        </body>
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sunryze Profile</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="start-screen">
+        <div id="start-text"></div>
+    </div>
+
+    <img id="background" src="assets/background.png" alt="Background">
+
+    <div id="profile-block" class="hidden">
+        <div class="profile-container">
+            <img src="assets/pfp_cropped.png" alt="Profile" class="profile-picture">
+        </div>
+        
+        <h1 id="profile-name">sunryze</h1>
+        <p id="profile-bio">hi, im sunryze. i do stuff.</p>
+        
+        <div class="social-links">
+            <a href="https://github.com/sunryze-git" target="_blank" class="social-link">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" class="social-icon">
+            </a>
+            <a href="https://steamcommunity.com/id/sunryzee/" target="_blank" class="social-link">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/960px-Steam_icon_logo.svg.png" alt="Steam" class="social-icon">
+            </a>
+        </div>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="assets/background_music.mp3" type="audio/mp3">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
 </html>

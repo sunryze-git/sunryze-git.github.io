@@ -1,0 +1,232 @@
+:root {
+  --primary-color: #a4ffff83; 
+  --secondary-color: #ff367d;
+  --background-dark: #0A0A1A;
+  --text-color: #bcbcff;
+}
+
+/* 1. CORE FUNCTIONALITY - MUST BE AT TOP */
+.hidden {
+  display: none !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Space Mono', monospace;
+  background: var(--background-dark);
+  color: var(--text-color);
+  overflow: hidden;
+  height: 100vh;
+  cursor: none; /* Uses custom cursor instead */
+}
+
+
+
+/* 2. START SCREEN & MOTION EFFECT */
+#start-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  cursor: pointer;
+  backdrop-filter: blur(15px);
+}
+
+#start-text {
+  font-size: 24px;
+  color: #fff;
+  text-shadow: 0 0 10px var(--primary-color);
+}
+
+/* 3. BACKGROUND & CURSOR */
+#background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  /* Scale up to 110% to give room for movement */
+  transform: scale(1.1); 
+  will-change: transform;
+}
+/* Apply to everything */
+html, body, a, button, input, .volume-slider {
+  /* Syntax: url, then fallback type (auto, pointer, etc.) */
+  cursor: url('assets/custom_cursor.png'), auto !important;
+}
+
+/* For interactive elements, you can use a different version of the icon 
+   or just force the same one to prevent the 'hand' from appearing */
+a, button, .social-icon {
+  cursor: url('assets/custom_cursor.png'), pointer !important;
+}
+
+
+/* 4. PROFILE BLOCK */
+#profile-block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 640px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--primary-color);
+  border-radius: 15px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  transform-style: preserve-3d;
+}
+
+/* Orbiting Profile Pic */
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-container {
+  position: relative;
+}
+
+.profile-container::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 10px 10px, var(--primary-color) 15%, transparent 25%);
+  animation: orbit 3s linear infinite;
+  z-index: 1;
+  filter: blur(2px);
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* 5. TYPOGRAPHY & SOCIALS */
+#profile-name {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+#profile-bio {
+  font-family: 'Courier New', monospace;
+  min-height: 48px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+  padding: 10px 20px;
+  background: none;
+  border-radius: 30px;
+}
+
+.social-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;  /* Larger hit-box */
+  height: 48px; /* Larger hit-box */
+  transition: transform 0.3s ease;
+  text-decoration: none;
+}
+
+/* The Glow Effect */
+.social-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: -1; /* Sits behind the icon */
+}
+
+/* Hover States */
+.social-link:hover {
+  transform: scale(1.1);
+}
+
+.social-link:hover::before {
+  opacity: 0.4; /* Subtle bloom */
+  transform: scale(1.2); /* Glow expands slightly */
+}
+
+.social-icon {
+  width: 28px; /* Slightly smaller icon looks cleaner in the glow */
+  height: 28px;
+  filter: drop-shadow(0 0 5px var(--primary-color));
+  transition: filter 0.3s ease;
+}
+
+.social-link:hover .social-icon {
+  filter: drop-shadow(0 0 12px var(--primary-color));
+}
+
+/* 6. UI CONTROLS */
+.controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px 15px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+}
+
+.volume-slider {
+  width: 80px;
+  cursor: pointer;
+}
+
+/* 7. ANIMATIONS */
+@keyframes orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  #profile-block { width: 95%; padding: 20px; }
+  #profile-name { font-size: 24px; }
+  .profile-picture { width: 100px; height: 100px; }
+}
+
+#profile-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 206, 209, 0.2);
+  animation: scan 4s linear infinite;
+}
+@keyframes scan {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
